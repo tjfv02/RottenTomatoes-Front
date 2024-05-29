@@ -1,51 +1,78 @@
-import React from 'react';
+// src/components/MovieDetails.tsx
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { CircularProgress, Typography, Container, Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { useGetMovieDetailsQuery } from '../api/slices/movieSlice';
-
-const Media = styled('img')({
-  width: '100%',
-  height: 'auto',
-  maxHeight: '600px',
-});
-
-const StyledContainer = styled(Container)(({ theme }) => ({
-  padding: '20px',
-}));
+import { CircularProgress, Typography, Container, TextField, Button } from '@mui/material';
 
 const MovieDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-//   const { data: movie, error, isLoading } = useGetMovieDetailsQuery(Number(id));
-const movie = {
-    "id": 1,
-    "title": "The Shawshank Redemption",
-    "overview": "Framed in the 1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison, where he puts his accounting skills to work for an amoral warden. During his long stretch in prison, Dufresne comes to be admired by the other inmates—including an older prisoner named Red—for his integrity and unquenchable sense of hope.",
-    "poster_path": "/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
-    "vote_average": 8.7
+
+  const [comment, setComment] = useState('');
+  const [rating, setRating] = useState(0);
+
+  const data = {
+    "results": [
+      {
+        "id": 1,
+        "title": "The Shawshank Redemption",
+        "poster_path": "/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
+        "vote_average": 8.7
+      },
+      {
+        "id": 2,
+        "title": "The Godfather",
+        "poster_path": "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+        "vote_average": 8.7
+      },
+      {
+        "id": 3,
+        "title": "The Dark Knight",
+        "poster_path": "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+        "vote_average": 8.5
+      },
+      {
+        "id": 4,
+        "title": "Pulp Fiction",
+        "poster_path": "/dM2w364MScsjFf8pfMbaWUcWrR.jpg",
+        "vote_average": 8.5
+      }
+    ]
   }
   
 
+  const handleRatingSubmit = async () => {
 
-  if (!movie) return null;
+  };
+
+
 
   return (
-    <StyledContainer>
-      <Typography variant="h3">{movie.title}</Typography>
-      <Box mt={2}>
-        <Media
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-        />
-      </Box>
-      <Typography variant="h5" sx={{ marginTop: '20px' }}>
-        Overview
-      </Typography>
-      <Typography>{movie.overview}</Typography>
-      <Typography variant="h6" sx={{ marginTop: '20px' }}>
-        Rating: {movie.vote_average}
-      </Typography>
-    </StyledContainer>
+    <Container>
+      {data && (
+        <>
+          <Typography variant="h4" gutterBottom>{data.title}</Typography>
+          <img src={`https://image.tmdb.org/t/p/w500${data.poster_path}`} alt={data.title} />
+          <Typography variant="body1" gutterBottom>{data.overview}</Typography>
+          <Typography variant="h6" gutterBottom>Rating: {data.vote_average}</Typography>
+          <TextField
+            label="Your Rating"
+            type="number"
+            value={rating}
+            onChange={(e) => setRating(Number(e.target.value))}
+            inputProps={{ min: 0, max: 10 }}
+          />
+          <TextField
+            label="Your Comment"
+            multiline
+            rows={4}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          />
+          <Button variant="contained" color="primary" onClick={handleRatingSubmit}>
+            Submit Rating
+          </Button>
+        </>
+      )}
+    </Container>
   );
 };
 
