@@ -21,7 +21,7 @@ const RegisterConfirm = () => {
       >
         <img
           src={logo}
-          alt="Canella Logo"
+          alt="Logo"
           style={{
             maxWidth: "6em",
           }}

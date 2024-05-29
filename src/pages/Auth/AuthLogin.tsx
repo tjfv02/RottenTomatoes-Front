@@ -114,7 +114,7 @@ const AuthLogin = () => {
                     maxHeight: { xs: 233, md: 167 },
                     maxWidth: { xs: 350, md: 250 },
                   }}
-                  alt='Canella Logo'
+                  alt='Logo'
                   src={logo}
                 />
               </Grid>

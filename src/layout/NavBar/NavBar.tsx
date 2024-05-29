@@ -24,7 +24,7 @@ const NavBar = () => {
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar
                     position="fixed"
-                    elevation={0}
+                    elevation={2}
                     sx={{
                         backgroundColor: "white",
                         border: 0,
@@ -50,7 +50,7 @@ const NavBar = () => {
 
                             <Grid item>
                                 <NavBarUserMenu userName={userName} userId={userId} />
-                                <IconButton onClick={handleLogout} sx={{ color: theme.palette.grey[600], marginLeft: 2 }}>
+                                <IconButton onClick={handleLogout} sx={{ color: theme.palette.secondary.main, marginLeft: 2 }}>
                                     <IconLogout />
                                 </IconButton>
                             </Grid>

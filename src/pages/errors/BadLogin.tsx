@@ -31,7 +31,7 @@ export const BadLoginPage = () => {
                 >
                     <img
                         src={Logo}
-                        alt='canella logo full'
+                        alt='logo full'
                         style={{
                             width: '300px',
                         }}

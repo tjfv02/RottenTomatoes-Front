@@ -13,10 +13,9 @@ import { CSSObject, Theme, styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 
-import { useAuth } from "../../context/auth/AuthContext";
 import NavBar from "./NavBar";
-import { IconHome } from "@tabler/icons-react";
-import { menuLinks } from "./LinksList";
+import { IconHome, IconMovie, IconSearch } from "@tabler/icons-react";
+import theme from "../../theme";
 
 const drawerWidth = 275;
 
@@ -61,7 +60,7 @@ const Drawer = styled(MuiDrawer, {
     "& .MuiDrawer-paper": {
       ...openedMixin(theme),
       backgroundColor: "white",
-      borderRight: "none",
+      borderRight: "1",
     },
   }),
   ...(!open && {
@@ -69,16 +68,13 @@ const Drawer = styled(MuiDrawer, {
     "& .MuiDrawer-paper": {
       ...closedMixin(theme),
       backgroundColor: "white",
-      borderRight: "none",
+      borderRight: "1",
     },
   }),
 }));
 
 const MiniDrawer = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
-
-  
   const [selectedIndex, setSelectedIndex] = useState<string>("");
   const [open, setOpen] = useState(false);
 
@@ -91,19 +87,25 @@ const MiniDrawer = () => {
     navigate(url, { replace: false });
   };
 
-  const isRoleAdmin = () => user?.role === "Admin";
-  const isRoleCustomer = () => user?.role === "Customer";
 
-  const menuItems = isRoleAdmin()
-    ? menuLinks["Admin"]
-    : isRoleCustomer()
-      ? menuLinks["Customer"]
-        : [
+
+  const menuItems = [
           {
             title: "Inicio",
-            icon: <IconHome />,
+            icon: <IconHome color={theme.palette.secondary.main} />,
             url: "HomePage",
-          }
+          },
+          {
+            title: "Peliculas",
+            icon: <IconMovie color={theme.palette.secondary.main}/>,
+            url: "MoviesPage",
+          },
+          {
+            title: "Buscar Película",
+            icon: <IconSearch color={theme.palette.secondary.main} />,
+            url: "Search",
+          },
+
 
         ];
 
@@ -138,11 +140,11 @@ const MiniDrawer = () => {
             <List>
               <ListItem key="ToggleDrawer" disablePadding>
                 <ListItemButton>
-                  <ListItemIcon sx={{ color: "primary.main" }}>
+                  <ListItemIcon sx={{ color: "secondary.main" }}>
                     {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                   </ListItemIcon>
                   {open && (
-                    <ListItemText primary="Ocultar Menú" sx={{ color: "primary.main" }} />
+                    <ListItemText primary="Ocultar Menú" sx={{ color: "secondary.main" }} />
                   )}
                 </ListItemButton>
               </ListItem>
@@ -155,7 +157,7 @@ const MiniDrawer = () => {
         sx={{
           flexGrow: 1,
           // p: 3,
-          mt: 5, // Mueve el contenido hacia abajo
+          mt: 10, // Mueve el contenido hacia abajo
           // ml: 3, // Mueve el contenido hacia la derecha
         }}
       >
