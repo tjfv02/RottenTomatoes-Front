@@ -1,14 +1,19 @@
-import { Typography } from "@mui/material";
-import AuthLogin from "./pages/Auth/AuthLogin";
-import AuthRegister from "./pages/Auth/AuthRegister";
+import { ThemeProvider } from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
+import theme from "./theme";
+import { AppRouter } from "./Router";
+import { AuthProvider } from "./context/auth/AuthContext";
 
 const App = () => {
   return (
     <>
-      <Typography variant="h4"> Rotten Tomatoes </Typography>
-      <AuthRegister/>
-      <AuthLogin/>
-
+      <BrowserRouter>
+        <AuthProvider>
+          <ThemeProvider theme={theme}>
+            <AppRouter />
+          </ThemeProvider>
+        </AuthProvider>
+      </BrowserRouter>
     </>
   );
 };
